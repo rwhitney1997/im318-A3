@@ -1,3 +1,5 @@
+<!-- To run in Powershell: "npm run dev -- --open" -->
+
 <script>
      let todoItem = $state('');
      let todoList = $state([]); //square brackets for array
