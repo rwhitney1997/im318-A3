@@ -23,6 +23,10 @@ function nuke (){
      todoList = [];
 }
 
+$effect(() => {
+     doneList = todoList.filter((item) => item.done);
+})
+
 $inspect(todoList);
 </script>
 
