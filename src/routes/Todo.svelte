@@ -30,28 +30,31 @@ $effect(() => {
 $inspect(todoList);
 </script>
 
-<form onsubmit={addItem}>
+<form class="text-pop-up-top" onsubmit={addItem}>
 <input type="text" bind:value={todoItem}>
-<button type="submit">Add Event</button>
+<button id="inputButton" type="submit">Add Event</button>
 </form>
 
 <ul>
      {#each todoList as item, index}
-          <li>
-               <input type="checkbox" bind:checked={item.done}>
+          <li class="slide-in-left">
+               <input id="listCheck" type="checkbox" bind:checked={item.done}>
                <span class:done={item.done}>{item.text}</span> <!-- span directive adds class when item is done, specifically - see style below -->
-               <button type="button" onclick={() => removeItem(index)} >X</button>
+               <button id="listButton" type="button" onclick={() => removeItem(index)} >&#10008</button>
           </li>
      {/each}
 </ul>
 
+
+
 {#if (todoList.length > 0)}
-<button type="button" onclick={nuke}>Nuke</button>
+<button id="listButton" type="button" onclick={nuke}>Clear List</button>
 {/if}
 
 <style>
      ul{
           list-style: none;
+          text-align: center;
      }
      span.done{
           color: rgb(137, 137, 137);

@@ -3,7 +3,7 @@
      import '../style.css';
 </script>
 
-<h1>To Do List</h1>
+<h1 class="text-pop-up-top">To Do List</h1>
 
 <Todo />
 
