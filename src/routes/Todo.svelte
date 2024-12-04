@@ -1,9 +1,23 @@
 <!-- To run in Powershell: "npm run dev -- --open" -->
 
 <script>
+     import {onMount} from 'svelte';
      import { fly } from 'svelte/transition';
      let todoItem = $state('');
      let todoList = $state([]); //square brackets for array
+     let storedList;
+
+     onMount (() => {
+          storedList = localStorage.getItem('storedList');
+          if (storedList) {
+               todoList = (JSON.parse(storedList));
+          }
+     })
+
+function updateList() {
+     return storedList = localStorage.setItem('storedList', JSON.stringify
+     (todoList));
+}
 
 function addItem(event) {
      event.preventDefault(); //when enter is clicked the focus remains on the submit form
@@ -14,14 +28,17 @@ function addItem(event) {
           text: todoItem,
           done: false
      }];
+     updateList();
      todoItem = '';
 }
 function removeItem(index){
      todoList = todoList.toSpliced(index, 1);
+     updateList();
 }
 
 function nuke (){
      todoList = [];
+     localStorage.clear();
 }
 
 
@@ -44,8 +61,6 @@ $inspect(todoList);
      {/each}
 </ul>
 
-
-
 {#if (todoList.length > 0)}
 <button class="clearButton" type="button" onclick={nuke}>Clear List</button>
 {/if}
@@ -56,8 +71,9 @@ $inspect(todoList);
           text-align: center;
      }
      span.done{
-          color: rgb(137, 137, 137);
+          color: rgb(67, 67, 67);
           text-decoration: line-through;
      }
+     
      /* Styles added here will only effect this component, use style.css for global */
 </style>

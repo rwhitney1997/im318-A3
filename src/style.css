@@ -31,6 +31,10 @@ form{
 input{
      padding: 10px;
      margin-right: 40px;
+     border-style: solid;
+     border-color: black;
+     border-width: 5px ;
+     border-radius: 10px;
 }
 
 #inputButton{
@@ -100,6 +104,15 @@ input#listCheck {
   box-shadow: 3px 3px 3px white;
 }
 
+.clearButton:hover{
+    cursor: pointer;
+    background-color: rgb(255, 0, 0);
+    color: black;
+    transition: 1s;
+    box-shadow: 1px 1px 3px black;
+    transform: scale(1.1);
+}
+
 li{
      display: flex;
      justify-content: space-between;
@@ -109,15 +122,15 @@ li{
 }
 
 div:has(ul li) h1.text-pop-up-top{
-  font-size: 5em;
+    font-size: 5em;
 }
 
 div:has(ul li) h2.text-pop-up-top{
-  font-size: 2em;
+    font-size: 2em;
 }
 
 span{
-     font-size: 2em;
+    font-size: 2em;
 }
 
 
