@@ -1,6 +1,7 @@
 <!-- To run in Powershell: "npm run dev -- --open" -->
 
 <script>
+     import { fly } from 'svelte/transition';
      let todoItem = $state('');
      let todoList = $state([]); //square brackets for array
 
@@ -23,23 +24,21 @@ function nuke (){
      todoList = [];
 }
 
-$effect(() => {
-     doneList = todoList.filter((item) => item.done);
-})
 
 $inspect(todoList);
 </script>
 
 <form class="text-pop-up-top" onsubmit={addItem}>
 <input type="text" bind:value={todoItem}>
+
 <button id="inputButton" type="submit">Add Event</button>
 </form>
 
 <ul>
      {#each todoList as item, index}
-          <li class="slide-in-left">
+          <li  in:fly={{ x: -200, duration: 500 }} out:fly={{ x: 200, duration: 500 }}>
                <input id="listCheck" type="checkbox" bind:checked={item.done}>
-               <span class:done={item.done}>{item.text}</span> <!-- span directive adds class when item is done, specifically - see style below -->
+               <span class:done={item.done}>{item.text}<input type="time" name="timestamp" class="inputTime"></span> <!-- span directive adds class when item is done, specifically - see style below -->
                <button id="listButton" type="button" onclick={() => removeItem(index)} >&#10008</button>
           </li>
      {/each}
@@ -48,7 +47,7 @@ $inspect(todoList);
 
 
 {#if (todoList.length > 0)}
-<button id="listButton" type="button" onclick={nuke}>Clear List</button>
+<button class="clearButton" type="button" onclick={nuke}>Clear List</button>
 {/if}
 
 <style>
