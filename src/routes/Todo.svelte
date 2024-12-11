@@ -3,6 +3,8 @@
 <script>
      import {onMount} from 'svelte';
      import { fly } from 'svelte/transition';
+     import { Confetti } from "svelte-confetti";
+     import { M } from 'svelte-motion'
      let todoItem = $state('');
      let todoList = $state([]); //square brackets for array
      let storedList;
@@ -46,7 +48,7 @@ $inspect(todoList);
 </script>
 
 <form class="text-pop-up-top" onsubmit={addItem}>
-<input type="text" bind:value={todoItem}>
+<input type="text" bind:value={todoItem}> 
 
 <button id="inputButton" type="submit">Add Event</button>
 </form>
@@ -54,9 +56,16 @@ $inspect(todoList);
 <ul>
      {#each todoList as item, index}
           <li  in:fly={{ x: -200, duration: 500 }} out:fly={{ x: 200, duration: 500 }}>
-               <input id="listCheck" type="checkbox" bind:checked={item.done}>
+               <span class="relative">
+               <input id="listCheck" type="checkbox" bind:checked={item.done} onchange={updateList} > 
+               {#if (item.done)}
+               <span class="confetti">
+                    <Confetti y={[-0.5, 0.5]} x={[-0.5, 0.5]} colorRange={[0, 255]} amount=50 fallDistance=100px duration=2000 size=10 />
+               </span>
+               {/if}
+               </span> 
                <span class:done={item.done}>{item.text}<input type="time" name="timestamp" class="inputTime"></span> <!-- span directive adds class when item is done, specifically - see style below -->
-               <button id="listButton" type="button" onclick={() => removeItem(index)} >&#10008</button>
+               <button id="listButton" type="button" onclick={() => removeItem(index)}>&#10008</button>
           </li>
      {/each}
 </ul>
