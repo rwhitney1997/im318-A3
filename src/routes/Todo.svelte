@@ -4,7 +4,6 @@
      import {onMount} from 'svelte';
      import { fly } from 'svelte/transition';
      import { Confetti } from "svelte-confetti";
-     import { M } from 'svelte-motion'
      let todoItem = $state('');
      let todoList = $state([]); //square brackets for array
      let storedList;
@@ -28,6 +27,7 @@ function addItem(event) {
      }
      todoList = [...todoList, {
           text: todoItem,
+          time: "00:00:00",
           done: false
      }];
      updateList();
@@ -64,7 +64,7 @@ $inspect(todoList);
                </span>
                {/if}
                </span> 
-               <span class:done={item.done}>{item.text}<input type="time" name="timestamp" class="inputTime"></span> <!-- span directive adds class when item is done, specifically - see style below -->
+               <span class:done={item.done}>{item.text}<input bind:value={item.time} type="time" name="timestamp" class="inputTime" onchange={updateList}></span> <!-- span directive adds class when item is done, specifically - see style below -->
                <button id="listButton" type="button" onclick={() => removeItem(index)}>&#10008</button>
           </li>
      {/each}
